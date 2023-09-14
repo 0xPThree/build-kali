@@ -1,0 +1,4 @@
+github.com/lkarlslund/ldapnomnom@latest
+github.com/lobuhi/byp4xx@latest
+github.com/ropnop/kerbrute@latest
+github.com/vdjagilev/nmap-formatter@latest
