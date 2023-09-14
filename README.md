@@ -1,4 +1,4 @@
-# A simple build script for new Kali VM
+# A simple build script for new Kali pentest VM
 
 The script will: 
 - [x] Update the host machine
@@ -35,4 +35,4 @@ Root privileges required to update and install some packages.
 ## TODO
 - [ ] Update packages
 - [ ] Add "Look and Feel" section
-
+- [ ] Migrate to Ansible (?)
