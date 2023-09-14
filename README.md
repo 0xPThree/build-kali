@@ -7,7 +7,7 @@ The script will:
 - [x] Install go packages from `packages/go_packages.txt`
 - [x] Install nim packages from `packages/nim_packages.txt`
 - [x] Clone github repositories from `packages/git_repos.txt`
-- [x] Download scripts/applications from `packages/wget_packages.txt`
+- [x] Download scripts/applications from `packages/wget_urls.txt`
 - [x] Install Burp Suite Pro
 
 The script is prepared to set up virtual environments with `venv` and `poetry` - to use this uncomment relevant section of the code.
