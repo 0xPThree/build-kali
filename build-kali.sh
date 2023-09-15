@@ -219,7 +219,7 @@ printf "${Blue} (apt-get) ${NOCOLOR}\n"
 func_install dots/apt_packages.txt apt-get
 printf "${Green} [\xE2\x9C\x94] copying wallpapers to ~/Pictures/wallpapers/  ${NOCOLOR}\n"
 mkdir ~/Pictures/wallpapers
-cp -R dots/wallpapers ~/Pictures/wallpapers
+cp -R dots/wallpapers ~/Pictures/
 
 printf "${Green} [\xE2\x9C\x94] copying dots ${NOCOLOR}\n"
 cp -R dots/dunst ~/.config/
