@@ -99,11 +99,11 @@ func_create_venv() {
 	deactivate
 	cd
 }
-: '
+
 ######################################################################
 # UPDATE MACHINE
 printf  "\n${Yellow}[i] Update/Upgrade Host: $(echo $(hostname && uname -r)) ${NOCOLOR}\n" 
-sudo DEBIAN_FRONTEND=noninteractive apt-get update >/dev/null
+sudo DEBIAN_FRONTEND=noninteractive apt-get update 2>&1 >/dev/null
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y 2>&1 >/dev/null
 printf "${Green}[\xE2\x9C\x94] Host updated successfully ${NOCOLOR}\n\n" 
 
@@ -164,7 +164,7 @@ chmod u+x ~/tools/burppro.sh
 ~/tools/burppro.sh -q
 wget -qq --show-progress "https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.3/jython-standalone-2.7.3.jar" -O ~/BurpSuitePro/jython-standalone-2.7.3.jar
 printf "${Green}[\xE2\x9C\x94] Burp Suite Pro installed successfully ${NOCOLOR}\n\n" 
-'
+
 ######################################################################
 # CREATE PYTHON3 VENV
 : ' # Removed venv/poetry section as its very time consuming and resource heavy. Suggest to do this manually if needed.
@@ -211,7 +211,7 @@ poetry install
 poetry run DonPAPI
 
 printf "${Green}[\xE2\x9C\x94] Virtual environments created successfully ${NOCOLOR}\n\n" 
-
+'
 ######################################################################
 # LOOK AND FEEL
 echo -ne "${Yellow}[i] Customizing Environment ${NOCOLOR}\n"
@@ -220,7 +220,7 @@ func_install dots/apt_packages.txt apt-get
 printf "${Green} [\xE2\x9C\x94] copying wallpapers to ~/Pictures/wallpapers/  ${NOCOLOR}\n"
 mkdir ~/Pictures/wallpapers
 cp -R dots/wallpapers ~/Pictures/wallpapers
-'
+
 printf "${Green} [\xE2\x9C\x94] copying dots ${NOCOLOR}\n"
 cp -R dots/dunst ~/.config/
 cp -R dots/i3 ~/.config/
@@ -230,7 +230,7 @@ cp -R dots/rofi ~/.config/
 cp -R dots/compton.conf ~/.config/
 cp -R dots/terminator ~/.config/
 sh -c "$(wget -qq https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - &)" >/dev/null &
-sleep 5
+sleep 10
 cp -R dots/oh-my-zsh/common.zsh-theme ~/.oh-my-zsh/custom/themes/
 cp -R dots/oh-my-zsh/zshrc ~/.zshrc
 
