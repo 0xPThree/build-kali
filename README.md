@@ -27,7 +27,7 @@ Run the script as a non-root user.
 
 Root privileges required to update and install some packages.
 
-[i] Updating Host: kali-script 6.4.0-kali3-amd64 
+[i] Update/Upgrade Host: kali-script 6.4.0-kali3-amd64 
 [✔] Host updated successfully
 
 ...
