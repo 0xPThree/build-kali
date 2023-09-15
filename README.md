@@ -9,6 +9,7 @@ The script will:
 - [x] Clone github repositories from `packages/git_repos.txt`
 - [x] Download scripts/applications from `packages/wget_urls.txt`
 - [x] Install Burp Suite Pro
+- [x] Customize window environment
 
 The script is prepared to set up virtual environments with `venv` and `poetry` - to use this uncomment relevant section of the code.
 
@@ -34,5 +35,4 @@ Root privileges required to update and install some packages.
 
 ## TODO
 - [ ] Update packages
-- [ ] Add "Look and Feel" section
 - [ ] Migrate to Ansible (?)
