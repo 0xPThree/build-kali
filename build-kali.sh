@@ -99,12 +99,12 @@ func_create_venv() {
 	deactivate
 	cd
 }
-
+: '
 ######################################################################
 # UPDATE MACHINE
 printf  "\n${Yellow}[i] Update/Upgrade Host: $(echo $(hostname && uname -r)) ${NOCOLOR}\n" 
 sudo DEBIAN_FRONTEND=noninteractive apt-get update >/dev/null
-sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade >/dev/null
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y 2>&1 >/dev/null
 printf "${Green}[\xE2\x9C\x94] Host updated successfully ${NOCOLOR}\n\n" 
 
 ######################################################################
@@ -164,7 +164,7 @@ chmod u+x ~/tools/burppro.sh
 ~/tools/burppro.sh -q
 wget -qq --show-progress "https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.3/jython-standalone-2.7.3.jar" -O ~/BurpSuitePro/jython-standalone-2.7.3.jar
 printf "${Green}[\xE2\x9C\x94] Burp Suite Pro installed successfully ${NOCOLOR}\n\n" 
-
+'
 ######################################################################
 # CREATE PYTHON3 VENV
 : ' # Removed venv/poetry section as its very time consuming and resource heavy. Suggest to do this manually if needed.
@@ -211,26 +211,28 @@ poetry install
 poetry run DonPAPI
 
 printf "${Green}[\xE2\x9C\x94] Virtual environments created successfully ${NOCOLOR}\n\n" 
-'
+
 ######################################################################
 # LOOK AND FEEL
 echo -ne "${Yellow}[i] Customizing Environment ${NOCOLOR}\n"
 printf "${Blue} (apt-get) ${NOCOLOR}\n"
 func_install dots/apt_packages.txt apt-get
 printf "${Green} [\xE2\x9C\x94] copying wallpapers to ~/Pictures/wallpapers/  ${NOCOLOR}\n"
-cp -R ~/build/dots/wallpapers ~/Pictures/wallpapers
-
+mkdir ~/Pictures/wallpapers
+cp -R dots/wallpapers ~/Pictures/wallpapers
+'
 printf "${Green} [\xE2\x9C\x94] copying dots ${NOCOLOR}\n"
-cp -R ~/build/dots/dunst ~/.config/
-cp -R ~/build/dots/i3 ~/.config/
-cp -R ~/build/dots/i3status ~/.config/
-cp -R ~/build/dots/polybar ~/.config/
-cp -R ~/build/dots/rofi ~/.config/
-cp -R ~/build/dots/compton.conf ~/.config/
-cp -R ~/build/dots/terminator ~/.config/
-cp -R ~/build/dots/.oh-my-zsh ~/
-cp -R ~/build/dots/.zshrc ~/
-ln -s ~/.oh-my-zsh/plugins/per-directory-history/per-directory-history.zsh ~/.oh-my-zsh/plugins/per-directory-history/per-directory-history.plugin.zsh
+cp -R dots/dunst ~/.config/
+cp -R dots/i3 ~/.config/
+cp -R dots/i3status ~/.config/
+cp -R dots/polybar ~/.config/
+cp -R dots/rofi ~/.config/
+cp -R dots/compton.conf ~/.config/
+cp -R dots/terminator ~/.config/
+sh -c "$(wget -qq https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - &)" >/dev/null &
+sleep 5
+cp -R dots/oh-my-zsh/common.zsh-theme ~/.oh-my-zsh/custom/themes/
+cp -R dots/oh-my-zsh/zshrc ~/.zshrc
 
 printf "${Green} [\xE2\x9C\x94] configuring polybar  ${NOCOLOR}\n"
 sudo mv ~/.config/polybar/config.ini /etc/polybar/config.ini
@@ -242,3 +244,4 @@ printf "${Green}[\xE2\x9C\x94] Customization completed successfully ${NOCOLOR}\n
 # END
 printf "\n${Green}[\xE2\x9C\x94] All done! Reboot your computer and change window manager to i3. ${NOCOLOR}\n"
 printf "${Red}[!] Don't forget to install Burp Plugins and License. ${NOCOLOR}\n\n"
+zsh
