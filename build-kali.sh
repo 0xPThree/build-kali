@@ -33,8 +33,8 @@ sudo -v
 
 ######################################################################
 # FUNCTIONS
-## Help function for statistics
-func_stats() {
+## Help function for count statistics
+func_count() {
 	PACKAGE_COUNT=$(<$1 wc -l)
 	PACKAGES=$(cat $1)
 	count=1
@@ -42,7 +42,7 @@ func_stats() {
 
 ## Install packages with apt-get, pip3 and go
 func_install() {
-	func_stats $1
+	func_count $1
 	for content in $PACKAGES; 
 	do 
 		printf "${Green} $count/$PACKAGE_COUNT\t> $content ${NOCOLOR}\n"
@@ -63,7 +63,7 @@ func_install() {
 
 ## Download packages with git clone
 func_git-clone() {
-	func_stats $1
+	func_count $1
 	for content in $PACKAGES;
 	do
 		printf "${Green} $count/$PACKAGE_COUNT\t> $content ${NOCOLOR}\n"
@@ -75,7 +75,7 @@ func_git-clone() {
 
 ## Create python3 virtual environment
 func_wget() {
-	func_stats $1
+	func_count $1
 	for content in $PACKAGES;
 	do
 		printf "${Green} $count/$PACKAGE_COUNT\t> $content ${NOCOLOR}\n"
@@ -102,8 +102,9 @@ func_create_venv() {
 
 ######################################################################
 # UPDATE MACHINE
-printf  "\n${Yellow}[i] Updating Host: $(echo $(hostname && uname -r)) ${NOCOLOR}\n" 
+printf  "\n${Yellow}[i] Update/Upgrade Host: $(echo $(hostname && uname -r)) ${NOCOLOR}\n" 
 sudo DEBIAN_FRONTEND=noninteractive apt-get update >/dev/null
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade >/dev/null
 printf "${Green}[\xE2\x9C\x94] Host updated successfully ${NOCOLOR}\n\n" 
 
 ######################################################################
@@ -152,6 +153,9 @@ func_wget packages/wget_urls.txt
 
 printf "${Green}[\xE2\x9C\x94] Scripts and applications downloaded successfully ${NOCOLOR}\n\n" 
 
+# Extend sudo session (15 min default timeout)
+sudo -v
+
 ######################################################################
 # BURPSUITE PRO
 echo -ne "${Yellow}[i] Installing Burp Suite Pro ${NOCOLOR}\n"
@@ -161,9 +165,9 @@ chmod u+x ~/tools/burppro.sh
 wget -qq --show-progress "https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.3/jython-standalone-2.7.3.jar" -O ~/BurpSuitePro/jython-standalone-2.7.3.jar
 printf "${Green}[\xE2\x9C\x94] Burp Suite Pro installed successfully ${NOCOLOR}\n\n" 
 
-: ' # Removed venv/poetry section as its very time consuming and resource heavy. Suggest to do this manually if needed.
 ######################################################################
 # CREATE PYTHON3 VENV
+: ' # Removed venv/poetry section as its very time consuming and resource heavy. Suggest to do this manually if needed.
 
 echo -ne "${Yellow}[i] Creating Virtual Environments - Venv & Poetry ${NOCOLOR}\n"
 printf "${Green} 1/4\t> prepparing tools requirements.txt for venv ${NOCOLOR}\n"
@@ -210,7 +214,31 @@ printf "${Green}[\xE2\x9C\x94] Virtual environments created successfully ${NOCOL
 '
 ######################################################################
 # LOOK AND FEEL
+echo -ne "${Yellow}[i] Customizing Environment ${NOCOLOR}\n"
+printf "${Blue} (apt-get) ${NOCOLOR}\n"
+func_install dots/apt_packages.txt apt-get
+printf "${Green} [\xE2\x9C\x94] copying wallpapers to ~/Pictures/wallpapers/  ${NOCOLOR}\n"
+cp -R ~/build/dots/wallpapers ~/Pictures/wallpapers
 
+printf "${Green} [\xE2\x9C\x94] copying dots ${NOCOLOR}\n"
+cp -R ~/build/dots/dunst ~/.config/
+cp -R ~/build/dots/i3 ~/.config/
+cp -R ~/build/dots/i3status ~/.config/
+cp -R ~/build/dots/polybar ~/.config/
+cp -R ~/build/dots/rofi ~/.config/
+cp -R ~/build/dots/compton.conf ~/.config/
+cp -R ~/build/dots/terminator ~/.config/
+cp -R ~/build/dots/.oh-my-zsh ~/
+cp -R ~/build/dots/.zshrc ~/
+ln -s ~/.oh-my-zsh/plugins/per-directory-history/per-directory-history.zsh ~/.oh-my-zsh/plugins/per-directory-history/per-directory-history.plugin.zsh
 
-printf "\n${Green}[\xE2\x9C\x94] All done! ${NOCOLOR}\n"
-printf "${Red}[!] Don't forget Burp Plugins and License. ${NOCOLOR}\n"
+printf "${Green} [\xE2\x9C\x94] configuring polybar  ${NOCOLOR}\n"
+sudo mv ~/.config/polybar/config.ini /etc/polybar/config.ini
+sudo ln -s /etc/polybar/config.ini ~/.config/polybar/config.ini
+
+printf "${Green}[\xE2\x9C\x94] Customization completed successfully ${NOCOLOR}\n\n" 
+
+######################################################################
+# END
+printf "\n${Green}[\xE2\x9C\x94] All done! Reboot your computer and change window manager to i3. ${NOCOLOR}\n"
+printf "${Red}[!] Don't forget to install Burp Plugins and License. ${NOCOLOR}\n\n"
