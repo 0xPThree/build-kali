@@ -14,7 +14,7 @@ The script will:
 The script is prepared to set up virtual environments with `venv` and `poetry` - to use this uncomment relevant section of the code.
 
 ## Usage
-Run the script as a non-root user.
+Run the script as a non-root user. It will take ~20 minutes to complete.
 ```bash
 ┌──(void㉿kali-script)-[~/build]
 └─$ ./build-kali.sh
