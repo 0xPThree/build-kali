@@ -237,6 +237,7 @@ cp -R dots/oh-my-zsh/zshrc ~/.zshrc
 printf "${Green} [\xE2\x9C\x94] configuring polybar  ${NOCOLOR}\n"
 sudo mv ~/.config/polybar/config.ini /etc/polybar/config.ini
 sudo ln -s /etc/polybar/config.ini ~/.config/polybar/config.ini
+chmod +x ~/.config/polybar/polybar.sh
 
 printf "${Green}[\xE2\x9C\x94] Customization completed successfully ${NOCOLOR}\n\n" 
 
