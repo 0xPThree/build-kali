@@ -1,0 +1,9 @@
+dunst
+i3
+terminator
+polybar
+rofi
+compton
+hsetroot
+scrot
+thunar
