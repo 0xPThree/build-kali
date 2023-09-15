@@ -33,6 +33,12 @@ Root privileges required to update and install some packages.
 ...
 ```
 
+## Appearance
+![no-apps](https://github.com/0xPThree/build-kali/assets/108757172/01c40b7a-e133-4b29-81a6-d51678eaff2e)
+
+![terminals](https://github.com/0xPThree/build-kali/assets/108757172/3ea1d5db-4329-42d2-a759-04559b083782)
+
+
 ## TODO
 - [ ] Update packages
 - [ ] Migrate to Ansible (?)
