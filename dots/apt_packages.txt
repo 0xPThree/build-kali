@@ -6,4 +6,3 @@ rofi
 compton
 hsetroot
 scrot
-thunar
